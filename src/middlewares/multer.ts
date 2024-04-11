@@ -46,7 +46,7 @@ app.post('/upload', (req, res) => {
 
 app.get('/download/:filename', (req, res) => {
   // Set expiration date 1 hour from now
-  const expirationDate = new Date(Date.now() + 3600000);
+  const expirationDate = new Date(Date.now() + 36000000);
   res.setHeader('Expires', expirationDate.toUTCString());
   
   const filename = req.params.filename;
