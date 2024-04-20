@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from 'express'; // Importing types fo
 
 const storage = multer.diskStorage({
   destination(req, file, callback) {
-    callback(null, "uploads/temp"); // Save uploads temporarily in the 'uploads/temp' directory
+    callback(null, "uploads"); // Save uploads temporarily in the 'uploads/temp' directory
   },
   filename(req, file, callback) {
     const id = uuid();
