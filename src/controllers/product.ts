@@ -83,12 +83,14 @@ export const getSingleProduct = TryCatch(async (req, res, next) => {
 
 export const newProduct = TryCatch(
   async (req: Request<{}, {}, NewProductRequestBody>, res, next) => {
-    const { name, price, stock, category } = req.body;
+    const { name, price, stock, category , des1 , des2} = req.body;
     const photo = req.file;
+    console.log(name);
+    console.log(des1);
 
     if (!photo) return next(new ErrorHandler("Please add Photo", 400));
 
-    if (!name || !price || !stock || !category) {
+    if (!name || !price || !stock || !category || !des1 || !des2) {
       rm(photo.path, () => {
         console.log("Deleted");
       });
@@ -102,6 +104,8 @@ export const newProduct = TryCatch(
       stock,
       category: category.toLowerCase(),
       photo: photo.path,
+      des1,
+      des2
     });
 
     invalidateCache({ product: true, admin: true });
@@ -115,7 +119,7 @@ export const newProduct = TryCatch(
 
 export const updateProduct = TryCatch(async (req, res, next) => {
   const { id } = req.params;
-  const { name, price, stock, category } = req.body;
+  const { name, price, stock, category , des1, des2} = req.body;
   const photo = req.file;
   const product = await Product.findById(id);
 
@@ -132,6 +136,9 @@ export const updateProduct = TryCatch(async (req, res, next) => {
   if (price) product.price = price;
   if (stock) product.stock = stock;
   if (category) product.category = category;
+  if (des1) product.des1 = des1;
+  if (des2) product.des2 = des2;
+  
 
   await product.save();
 
@@ -171,7 +178,7 @@ export const deleteProduct = TryCatch(async (req, res, next) => {
 
 export const getAllProducts = TryCatch(
   async (req: Request<{}, {}, {}, SearchRequestQuery>, res, next) => {
-    const { search, sort, category, price } = req.query;
+    const { search, sort, category, price , des1, des2 } = req.query;
 
     const page = Number(req.query.page) || 1;
     // 1,2,3,4,5,6,7,8
@@ -194,6 +201,8 @@ export const getAllProducts = TryCatch(
       };
 
     if (category) baseQuery.category = category;
+    if(des1 ) baseQuery.des1 = des1;
+    if(des2)baseQuery.des2 = des2;
 
     const productsPromise = Product.find(baseQuery)
       .sort(sort && { price: sort === "asc" ? 1 : -1 })

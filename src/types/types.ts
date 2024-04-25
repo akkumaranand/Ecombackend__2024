@@ -14,6 +14,8 @@ export interface NewProductRequestBody {
   category: string;
   price: number;
   stock: number;
+  des1:string;
+  des2:string;
 }
 
 export type ControllerType = (
@@ -28,6 +30,8 @@ export type SearchRequestQuery = {
   category?: string;
   sort?: string;
   page?: string;
+  des1?:string;
+  des2?:string;
 };
 
 export interface BaseQuery {
@@ -37,6 +41,8 @@ export interface BaseQuery {
   };
   price?: { $lte: number };
   category?: string;
+  des1?:string;
+  des2?:string;
 }
 
 export type InvalidateCacheProps = {

@@ -18,11 +18,20 @@ const schema = new mongoose.Schema(
       type: Number,
       required: [true, "Please enter Stock"],
     },
+    
     category: {
       type: String,
       required: [true, "Please enter Category"],
       trim: true,
     },
+    des1: {
+      type: String,
+      required: [true, "Please enter Des1"],
+    },
+    des2: {
+      type: String,
+      required: [true, "Please enter Des2"],
+    }
   },
   {
     timestamps: true,
